@@ -1,0 +1,53 @@
+package day3;
+import java.util.Scanner;
+class Person <A,B>
+{
+	A data1;
+	B data2;
+	
+	Person(A data1,B data2)
+	{
+		this.data1=data1;
+		this.data2=data2;
+	}
+	
+	public void print ()
+	{
+		System.out.println(data1);
+		System.out.println(data2);
+	}
+	public static <T extends Number> T add(T element1, T element2)
+	{
+		 if (element1 == null || element2 == null) {
+		        return null;
+		    }
+
+		    if (element1 instanceof Double) 
+		    {
+		        return (T) new Double(element1.doubleValue() + element2.doubleValue());
+		    } 
+		    else if (element1 instanceof Integer)
+		    {
+		        return (T)new Integer(element1.intValue() + element2.intValue());
+		    } 
+		    else 
+		    {
+		        throw new IllegalArgumentException("Type " + element1.getClass() + " is not supported by this method");
+		    }
+	}
+}
+	
+	public class Main
+	{
+	public static void main(String[] args)
+	{
+		Scanner input= new Scanner(System.in);
+		System.out.println("Enter the data1");
+		String d1=input.next();
+		System.out.println("Enter the data2");
+		int d2=input.nextInt();
+		Person <String,Integer> data = new 	Person <String,Integer> (d1,d2);
+		data.print();
+		System.out.println(data.add(5.5, 6.3));
+	}
+}
