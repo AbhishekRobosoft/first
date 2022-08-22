@@ -1,0 +1,118 @@
+package day3;
+import java.io.Serializable;   
+
+import java.util.*;
+import java.io.*;    
+class Employee implements Serializable
+{
+	String EmployeeName;
+	int EmployeeId;
+	long EmployeeSalary;
+	static Scanner input=new Scanner(System.in);
+	public void getEmployeeInfo(ArrayList <Employee> list, int count)
+	{
+		for(int i=0;i<count;i++)
+		{
+			list.add(new Employee());
+			Employee tempObj=list.get(i);
+			System.out.println("Enter the employee Name");
+			tempObj.EmployeeName=input.next();
+			System.out.println("Enter the employee ID");
+			tempObj.EmployeeId=input.nextInt();
+			System.out.println("Enter the Employee salary");
+			tempObj.EmployeeSalary=input.nextLong();
+		}
+	}
+	
+	public void displayEmployee(ArrayList <Employee> list)
+	{
+		for(int i=0;i<list.size();i++)
+		{
+			Employee tempObject=list.get(i);
+			System.out.println(tempObject.EmployeeName);
+			System.out.println(tempObject.EmployeeId);
+			System.out.println(tempObject.EmployeeSalary);
+		}
+	}
+	
+	public void addEmployee(ArrayList <Employee> list)
+	{
+		list.add(new Employee());
+		Employee temp=new Employee();
+		System.out.println("Enter the employee Name");
+		temp.EmployeeName=input.next();
+		System.out.println("Enter the employee ID");
+		temp.EmployeeId=input.nextInt();
+		System.out.println("Enter the Employee salary");
+		temp.EmployeeSalary=input.nextLong();
+	}
+	
+	public void deleteEmployee(ArrayList <Employee> list, int id)
+	{
+		for(int i=0;i<list.size();i++)
+		{
+			Employee tempObject=list.get(i);
+			if(tempObject.EmployeeId==id)
+				list.remove(i);
+		}
+		System.out.println("Sucessfully removed");
+		
+		for(int i=0;i<list.size();i++)
+		{
+			Employee tempObject=list.get(i);
+			System.out.println(tempObject.EmployeeName);
+			System.out.println(tempObject.EmployeeId);
+			System.out.println(tempObject.EmployeeSalary);
+		}
+	}
+		
+	}
+		
+
+public class Main
+{
+	public static void main(String[] args)
+	{
+		 Scanner input = new Scanner(System.in);
+		System.out.println("Enter how many Employee details you want to store");
+		int count=input.nextInt();
+		ArrayList <Employee> list =new ArrayList<>();
+		try
+		{
+		Employee e1=new Employee();
+		e1.getEmployeeInfo(list,count);
+		System.out.println("1.Add Employee");
+		System.out.println("2.Remove Employee");
+		System.out.println("3.Display employees");
+		int choice=input.nextInt();
+		if(choice==1)
+			e1.addEmployee(list);
+		else if(choice==2)
+		{
+			System.out.println("Enter the employee id to remove");
+			int Id=input.nextInt();
+			e1.deleteEmployee(list, Id);
+		}
+		else if(choice==3)
+		{
+			e1.displayEmployee(list);
+		}
+		  FileOutputStream fout=new FileOutputStream("D:/f.txt"); 
+		  ObjectOutputStream out=new ObjectOutputStream(fout);    
+		  out.writeObject(e1);    
+		  out.flush(); 
+		  out.close();    
+		  System.out.println("success");  
+		  ObjectInputStream in=new ObjectInputStream(new FileInputStream("D:/f.txt"));  
+		  Employee s=(Employee)in.readObject();  
+
+		  in.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		
+	}
+}
